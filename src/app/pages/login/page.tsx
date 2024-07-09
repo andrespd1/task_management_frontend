@@ -2,9 +2,13 @@
 
 import Image from "next/image";
 import { FormEvent, useState } from "react";
-import ErrorModal from "../components/error-modal";
+import ErrorModal from "../../components/error-modal";
+import { useRouter } from "next/navigation";
+import Cookies from 'js-cookie';
 
 export default function LoginPage() {
+
+  const router = useRouter()
 
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
@@ -22,9 +26,11 @@ export default function LoginPage() {
       })
       const data = await response.json();
       if(!response.ok){
-        //TODO: Trigger modal
         setError(data.detail)
         setOpenErrorModal(true)
+      } else{
+        Cookies.set('accessToken', data.access_token, {expires: (1/24)})
+        router.push("/pages/tasks")
       }
     } catch(error: any){
       setError(error.message)
@@ -64,7 +70,7 @@ export default function LoginPage() {
                   type="email"
                   required
                   autoComplete="email"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -82,7 +88,7 @@ export default function LoginPage() {
                   type="password"
                   required
                   autoComplete="current-password"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -99,12 +105,12 @@ export default function LoginPage() {
 
           <p className="mt-10 text-center text-sm text-gray-500">
             Not an user?{' '}
-            <a href="#" className="font-semibold leading-6 text-purple-600 hover:text-purple-800">
+            <a href="/pages/register" className="font-semibold leading-6 text-purple-600 hover:text-purple-800">
               Register here
             </a>
           </p>
         </div>
-        {openErrorModal && <ErrorModal msg={error} openerHandler = {setOpenErrorModal}/>}
+        {openErrorModal && <ErrorModal title={"Error at Sign In"} msg={error} openerHandler = {setOpenErrorModal}/>}
       </div>
   );
 }
