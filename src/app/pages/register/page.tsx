@@ -39,7 +39,7 @@ export default function RegisterPage() {
               setError(data.detail instanceof String ? data.detail : 'An error has occurred!')
               setOpenErrorModal(true)
             } else{
-              Cookies.set('accessToken', data.access_token, {expires: (1/24)})
+              Cookies.set('accessToken', data.token.access_token, {expires: (1/24)})
               router.push("/pages/tasks")
             }
           } catch(error: any){
