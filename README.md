@@ -1,36 +1,95 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Task Management Frontend
 
-## Getting Started
+This repository contains the frontend application for the Task Management system. It is built using Next.js and is integrated with the Task Management microservices.
 
-First, run the development server:
+## Demo:
+
+https://youtu.be/nIOetLCF254
+
+## Features
+
+- **Login**: Allows users to log in using their credentials.
+- **Register**: Allows new users to register for an account.
+- **Tasks**: Displays a list of tasks for the authenticated user.
+
+## Requirements
+
+- Node.js 14+
+- npm or yarn
+
+## Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/andrespd1/task_management_frontend.git
+   cd task-management-frontend
+   ```
+
+2. Install dependencies:
+
+   Using npm:
+
+   ```bash
+   npm install
+   ```
+
+   Using yarn:
+
+   ```bash
+   yarn install
+   ```
+
+## Running the App
+
+### Development Mode
+
+To run the application in development mode:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+or
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+yarn dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+The app will be available at `http://localhost:3000`.
 
-## Learn More
+### Production Mode
 
-To learn more about Next.js, take a look at the following resources:
+To build and run the application in production mode:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm run build
+npm start
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+or
 
-## Deploy on Vercel
+```bash
+yarn build
+yarn start
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Routing
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Login Page
+
+- **Path**: `/pages/login`
+- **Component**: `LoginPage`
+- **Description**: Allows users to log in by providing their email and password.
+
+### Register Page
+
+- **Path**: `/pages/register`
+- **Component**: `RegisterPage`
+- **Description**: Allows new users to register by providing their name, email, and password.
+
+### Tasks Page
+
+- **Path**: `/pages/tasks`
+- **Component**: `TasksPage`
+- **Description**: Displays a list of tasks for the authenticated user. Requires the user to be logged in.
