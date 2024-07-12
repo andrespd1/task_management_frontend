@@ -1,0 +1,6 @@
+.loading-container {
+  background-color: rgba(0, 0, 0, 0.3);
+  height: 100dvh;
+  width: 100dvw;
+  position: fixed;
+}

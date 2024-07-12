@@ -1,13 +1,20 @@
 "use client"
 
 import Image from "next/image";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import ErrorModal from "../../components/error-modal";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import Cookies from "js-cookie";
+import LoadingComponent from "@/app/components/loading/loading-component";
 
 export default function RegisterPage() {
 
+  useEffect(() => {
+    if(Cookies.get('accessToken')){
+      redirect('/pages/tasks')
+    }
+  }, []);
+  
   const router = useRouter()
 
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -51,17 +58,9 @@ export default function RegisterPage() {
   }
 
   return (
+    <>
+    {isLoading && <LoadingComponent/>}
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-      <div className="flex min-h-full flex-1 flex-col justify-center align-items-center mb-5">
-          <Image
-              src="/assets/Achievers_Logo_CMYK.png"
-              alt="Achievers logo"
-              quality={100}
-              width={225}
-              height={50}
-              priority
-            />
-      </div>
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             Sign up
@@ -152,6 +151,7 @@ export default function RegisterPage() {
           </p>
         </div>
         {openErrorModal && <ErrorModal title={"Error at Sign Up"} msg={error} openerHandler = {setOpenErrorModal}/>}
-      </div> 
+    </div> 
+    </>
   );
 }
