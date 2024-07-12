@@ -4,9 +4,6 @@ import { useEffect, useState } from 'react'
 import {
   Dialog,
   DialogPanel,
-  Disclosure,
-  DisclosureButton,
-  DisclosurePanel,
   Popover,
   PopoverButton,
   PopoverGroup,
@@ -15,38 +12,36 @@ import {
 import {
   Bars3Icon,
   ChartPieIcon,
-  PlusCircleIcon,
   XMarkIcon,
 } from '@heroicons/react/24/outline'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import Image from 'next/image'
-import { redirect, usePathname } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import Cookies from 'js-cookie';
 import LoadingComponent from '../loading/loading-component'
 
 const options = [
   { name: 'Dashboard', description: 'Shows all the tasks you have', href: '/pages/tasks', icon: ChartPieIcon },
-  { name: 'New task', description: 'Creates a new task', href: '/pages/tasks/create', icon: PlusCircleIcon },
 ]
 
 export default function HeaderComponent() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const pathname = usePathname()
-  const [userAccessTag, setUserAcessTag] = useState({label: "Sign up", path: "/pages/register"})
+  const [userAccess, setUserAccess] = useState({label: "Sign up", path: "/pages/register"})
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     if(pathname === '/pages/login')
-      setUserAcessTag({label: "Sign up", path: "/pages/register"})
+      setUserAccess({label: "Sign up", path: "/pages/register"})
     else if(pathname === '/pages/register')
-      setUserAcessTag({label: "Sign in", path: "/pages/login"})
+      setUserAccess({label: "Sign in", path: "/pages/login"})
     else
-      setUserAcessTag({label: "Log out", path: "/pages/login"})
+    setUserAccess({label: "Log out", path: "/pages/login"})
     setIsLoading(false)
   }, [pathname])
 
   const handleUserRedirect = () => {
-    if (userAccessTag.label === 'Log out'){
+    if (userAccess.label === 'Log out'){
       Cookies.remove('accessToken');
     }
   }
@@ -122,8 +117,8 @@ export default function HeaderComponent() {
           </a> */}
         </PopoverGroup>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <a href={userAccessTag.path} className="text-sm font-semibold leading-6 text-gray-900" onClick={handleUserRedirect}>
-            {userAccessTag.label} <span aria-hidden="true">&rarr;</span>
+          <a href={userAccess.path} className="text-sm font-semibold leading-6 text-gray-900" onClick={handleUserRedirect}>
+            {userAccess.label} <span aria-hidden="true">&rarr;</span>
           </a>
         </div>
       </nav>
@@ -155,11 +150,11 @@ export default function HeaderComponent() {
             <div className="-my-6 divide-y divide-gray-500/10">
               <div className="py-6">
                 <a
-                  href={userAccessTag.path}
+                  href={userAccess.path}
                   className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                   onClick={handleUserRedirect}
                 >
-                  {userAccessTag.label}
+                  {userAccess.label}
                 </a>
               </div>
             </div>
