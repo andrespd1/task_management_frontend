@@ -4,13 +4,19 @@ This repository contains the frontend application for the Task Management system
 
 ## Demo:
 
-https://youtu.be/nIOetLCF254
+[![Task management demo](https://img.youtube.com/vi/ufrQfEe2VcE/0.jpg)](https://youtu.be/ufrQfEe2VcE)
 
 ## Features
 
 - **Login**: Allows users to log in using their credentials.
 - **Register**: Allows new users to register for an account.
 - **Tasks**: Displays a list of tasks for the authenticated user.
+- **Tasks**: Creates a new task if the user is authenticated.
+
+## Constraints
+
+- User can't access to login or register page if is already logged in.
+- User can't access to tasks dashboard if it is not authenticated
 
 ## Requirements
 
